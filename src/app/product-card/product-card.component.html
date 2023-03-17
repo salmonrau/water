@@ -8,12 +8,12 @@
 
     <div class="card-container">
       <div class="card" *ngFor="let product of productDetails" [ngStyle]="{'background-color': product.color}" >
-        <div class="card-info">
+        <div class="card-info" [ngClass]="{'blur-card': product.disable }">
             <div>{{product.productType}}</div>
             <div class="cost">{{product.price}}</div>
             <div class="message">{{product.productDescription}}</div>
             <div class="button-container">
-                <button class="button-class" (click)="buy(product.productType)" type="button">{{product.buttonStatus}}</button>
+                <button class="button-class" (click)="changeButtonStatus(product, productDetails)" type="button">{{product.buttonStatus}}</button>
             </div>
         </div>
     </div>

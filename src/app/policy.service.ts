@@ -13,8 +13,8 @@ export class PolicyService {
   public getProdutDetails(){ 
     return this.httpClient.get(this.SERVER_URL + 'produtDetails');
   }
-  public updateProdutDetails(policy: {id: number, amount: number, clientId: number, userId: number, description: string}){
-    return this.httpClient.put(`${this.SERVER_URL + 'produtDetails'}/${policy.id}`, policy)
-}
+  public updateProdutDetails(product: any){
+    return this.httpClient.put(`${this.SERVER_URL + 'produtDetails'}/${product.id}`, product)
+  }
 
 }

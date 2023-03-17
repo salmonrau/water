@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { elementAt } from 'rxjs';
+import { PolicyService } from '../policy.service';
 import { ProductDetails } from '../product-details';
 
 @Component({
@@ -8,27 +9,22 @@ import { ProductDetails } from '../product-details';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
-//status: string='BUY'
-  constructor() { }
+  constructor(private productService: PolicyService) { }
 
   @Input() productDetails: ProductDetails[] = [];
 
   ngOnInit() {
     console.log('productDetails in card', this.productDetails)
   }
-  buy(productInfo: any){
-    console.log(productInfo);
-    //this.status= this.status==='CANCEL'?'BUY':'CANCEL';
-    this.productDetails.forEach(element=>{
-      if(element.productType==productInfo){
-        if(element.buttonStatus=='BUY'){
-          element.buttonStatus='CANCEL'
-        }else {
-          element.buttonStatus='BUY'
-        }
-
-      }
+  changeButtonStatus(product: ProductDetails, productDetails: ProductDetails[]) {
+    if(product.buttonStatus === 'BUY') {
+      product.buttonStatus = 'CANCEL'
+      this.productService.updateProdutDetails(product).subscribe(details => {
+      })
+    } else {
+      product.buttonStatus = 'BUY'
+        this.productService.updateProdutDetails(product).subscribe(details => {
+      })
     }
-  )}
-
+  }
 }

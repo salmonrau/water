@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PolicyService } from '../policy.service';
 import { ProductDetails } from '../product-details';
 
 @Component({
@@ -10,44 +11,20 @@ import { ProductDetails } from '../product-details';
 export class ProductsListComponent implements OnInit {
   produtDetails: ProductDetails[] = [];
 
-  constructor(private router:Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router:Router, private activatedRoute: ActivatedRoute, private productService: PolicyService) {
   }
   ngOnInit() {
     if(history.state.type === 'one') {
-      this.produtDetails = [{
-        productType: 'STARTER',
-        productDescription: 'Starter Feature for your business grow.',
-        price: '$1',
-        color:'grey',
-        buttonStatus:'BUY',
-        disable:false
-      },{
-        productType: 'REGULAR',
-        productDescription: 'Regular Feature for your business grow.',
-        price: '$25',
-        color:'blue',
-        buttonStatus:'BUY',
-        disable:false
-      }]
+      this.productService.getProdutDetails().subscribe((details: any) => {
+        console.log('details', details)
+        this.produtDetails = details.slice(0, 2)
+      })
     } 
     else {
-      this.produtDetails = [
-        {
-          productType: 'PROFESSIONAL',
-          productDescription: 'Professional Feature for your business grow.',
-          price: '$75',
-          color:'purple',
-          buttonStatus:'BUY',
-          disable:false
-        },{
-          productType: 'ULTIMATE',
-          productDescription: 'The Ultimate Feature for your business grow.',
-          price: '$115',
-          color:'red',
-          buttonStatus:'BUY',
-          disable:false
-        }
-      ];
+      this.productService.getProdutDetails().subscribe((details: any) => {
+        console.log('details', details)
+        this.produtDetails = details.slice(2, 4)
+      })
     }
   }
 
